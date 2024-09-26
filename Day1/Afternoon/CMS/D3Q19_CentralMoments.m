@@ -43,25 +43,27 @@ V2 = V*V;
 W2 = W*W;
 u2 = U*U+V*V+W*W;
 for i=1:length(cx)
-    % build equilibrium populations
-    if(cx(i)==0 && cy(i)==0 && cz(i)==0)
-        feq(i) = R/3*(1-(U2+V2+W2)+3*(U2*V2+U2*W2+V2*W2));
-    elseif(cx(i)~=0 && cy(i)==0 && cz(i)==0)
-        feq(i) = R/18*(1+3*cx(i)*U+3*(U2-V2-W2)-9*cx(i)*(U*V2+U*W2)-9*(U2*V2+U2*W2));
-    elseif(cx(i)==0 && cy(i)~=0 && cz(i)==0)
-        feq(i) = R/18*(1+3*cy(i)*V+3*(-U2+V2-W2)-9*cy(i)*(U2*V+V*W2)-9*(U2*V2+V2*W2));
-    elseif(cx(i)==0 && cy(i)==0 && cz(i)~=0)
-        feq(i) = R/18*(1+3*cz(i)*W+3*(-U2-V2+W2)-9*cz(i)*(U2*W+V2*W)-9*(U2*W2+V2*W2));
-    elseif(cx(i)~=0 && cy(i)~=0 && cz(i)==0)
-        feq(i) = R/36*(1+3*(cx(i)*U+cy(i)*V)+3*(U2+V2)+9*cx(i)*cy(i)*U*V+...
-                 9*(cy(i)*U2*V+cx(i)*U*V2)+9*U2*V2);
-    elseif(cx(i)~=0 && cy(i)==0 && cz(i)~=0)
-        feq(i) = R/36*(1+3*(cx(i)*U+cz(i)*W)+3*(U2+W2)+9*cx(i)*cz(i)*U*W+...
-                 9*(cz(i)*U2*W+cx(i)*U*W2)+9*U2*W2);
-    elseif(cx(i)==0 && cy(i)~=0 && cz(i)~=0)
-        feq(i) = R/36*(1+3*(cy(i)*V+cz(i)*W)+3*(V2+W2)+9*cy(i)*cz(i)*V*W+...
-                 9*(cz(i)*V2*W+cy(i)*V*W2)+9*V2*W2);
-    end
+        feq(i) = w(i)*R*(1+3*(U*cx(i)+V*cy(i)+W*cz(i)) + 4.5*((U*cx(i)+V*cy(i)+W*cz(i))^2 - 1.5*(U*U+V*V+W*W)));
+% 
+%     % build equilibrium populations
+%     if(cx(i)==0 && cy(i)==0 && cz(i)==0)
+%         feq(i) = R/3*(1-(U2+V2+W2)+3*(U2*V2+U2*W2+V2*W2));
+%     elseif(cx(i)~=0 && cy(i)==0 && cz(i)==0)
+%         feq(i) = R/18*(1+3*cx(i)*U+3*(U2-V2-W2)-9*cx(i)*(U*V2+U*W2)-9*(U2*V2+U2*W2));
+%     elseif(cx(i)==0 && cy(i)~=0 && cz(i)==0)
+%         feq(i) = R/18*(1+3*cy(i)*V+3*(-U2+V2-W2)-9*cy(i)*(U2*V+V*W2)-9*(U2*V2+V2*W2));
+%     elseif(cx(i)==0 && cy(i)==0 && cz(i)~=0)
+%         feq(i) = R/18*(1+3*cz(i)*W+3*(-U2-V2+W2)-9*cz(i)*(U2*W+V2*W)-9*(U2*W2+V2*W2));
+%     elseif(cx(i)~=0 && cy(i)~=0 && cz(i)==0)
+%         feq(i) = R/36*(1+3*(cx(i)*U+cy(i)*V)+3*(U2+V2)+9*cx(i)*cy(i)*U*V+...
+%                  9*(cy(i)*U2*V+cx(i)*U*V2)+9*U2*V2);
+%     elseif(cx(i)~=0 && cy(i)==0 && cz(i)~=0)
+%         feq(i) = R/36*(1+3*(cx(i)*U+cz(i)*W)+3*(U2+W2)+9*cx(i)*cz(i)*U*W+...
+%                  9*(cz(i)*U2*W+cx(i)*U*W2)+9*U2*W2);
+%     elseif(cx(i)==0 && cy(i)~=0 && cz(i)~=0)
+%         feq(i) = R/36*(1+3*(cy(i)*V+cz(i)*W)+3*(V2+W2)+9*cy(i)*cz(i)*V*W+...
+%                  9*(cz(i)*V2*W+cy(i)*V*W2)+9*V2*W2);
+    %end
     
     % Set the basis
     CX = cx(i)-U;
